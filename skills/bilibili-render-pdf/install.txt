@@ -1,0 +1,10 @@
+brew update
+
+brew install yt-dlp ffmpeg imagemagick ghostscript whisper-cpp python git wget curl
+brew install --cask mactex
+
+mkdir -p ~/whisper-models
+cd ~/whisper-models
+
+curl -L -o ggml-medium.bin \
+  https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin
