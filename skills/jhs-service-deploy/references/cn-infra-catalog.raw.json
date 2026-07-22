@@ -1,0 +1,1218 @@
+{
+ "jhs-testing": {
+  "vault": {
+   "infra/jhs-testing/mysql-testing-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-testing/postgres-dev-write": [
+    "PASSWORD",
+    "USERNAME",
+    "USERNAME/PASSWORD"
+   ],
+   "infra/jhs-testing/redis-testing-write": [
+    "PASSWORD",
+    "USERNAME",
+    "USERNAME/PASSWORD"
+   ],
+   "infra/jhs-testing/kafka-crawler-dev-write": [
+    "KAFKA_PASSWORD",
+    "KAFKA_USERNAME"
+   ],
+   "infra/jhs-testing/starrocks-dev-write": [
+    "DB_NAME",
+    "HOST",
+    "PASSWORD",
+    "PORT",
+    "USERNAME"
+   ],
+   "kubernetes/jhs-testing/tcg-idlinker": [
+    "EVENTHUB_TOKEN",
+    "WEBAUTH_IDLINKER_ANNO_SESSION_SECRET"
+   ],
+   "infra/jhs-testing/redis-tcg-write": [
+    "PASSWORD"
+   ],
+   "kubernetes/jhs-testing/tcg-trade": [
+    "ACTIVITY_SIGN_SECRET",
+    "ADA_PAY_API_KEY_LIVE",
+    "ADA_PAY_API_KEY_TEST",
+    "ADA_PAY_LB_API_KEY_LIVE",
+    "ADA_PAY_LB_API_KEY_TEST",
+    "BAIDU_AIP_API_KEY",
+    "BAIDU_AIP_CENSOR_API_KEY",
+    "BAIDU_AIP_CENSOR_SECRET_KEY",
+    "BAIDU_AIP_SECRET_KEY",
+    "DECK_SYNC_KEY",
+    "EXCHANGERATE_API_KEY",
+    "FLEXIBLE_EMPLOYMENT_APP_KEY",
+    "FLEXIBLE_EMPLOYMENT_DES3_KEY",
+    "FLEXIBLE_EMPLOYMENT_PRIVATE_KEY",
+    "IM_KEY",
+    "KDN_API_KEY",
+    "KDN_ORDER_APP_KEY",
+    "NTES_DUN_SECRET_ACCESS_KEY",
+    "NTES_DUN_SECRET_ID",
+    "PRIVACY_AES_ENCRYPT_KEY",
+    "QINIU_ACCESS_KEY",
+    "QINIU_SECRET_KEY",
+    "SHUSHU_TOKEN",
+    "SOBOT_KEY",
+    "WEAPP_DEFAULT_MINI_APP_SECRET",
+    "WECHAT_CONAN_WXA_SECRET",
+    "WECHAT_DECK_WXA_SECRET",
+    "WECHAT_LEGACY_MINI_APP_SECRET",
+    "WECHAT_MINI_APP_SECRET",
+    "WECHAT_OFFICIAL_ACCOUNT_SECRET",
+    "WECHAT_PAY_V3_KEY"
+   ],
+   "kubernetes/jhs-testing/jwt-secret": [
+    "JWT_SECRET"
+   ],
+   "infra/jhs-testing/es-tcg-admin": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-testing/tos-infra-config-write": [
+    "ACCESS_KEY_ID",
+    "SECRET_ACCESS_KEY"
+   ],
+   "kubernetes/jhs-testing/tcg-base": [
+    "DEEPLINK_SIGNING_SECRET",
+    "GITHUB_COSMO_DISPATCH_TOKEN",
+    "PLAN_SIGNING_KEY"
+   ],
+   "mount/path": [
+    "field"
+   ],
+   "infra/jhs-testing/postgres-testing-write": [
+    "PASSWORD",
+    "USERNAME",
+    "USERNAME/PASSWORD"
+   ],
+   "infra/jhs-testing/mysql-dev-write": [
+    "USERNAME/PASSWORD"
+   ],
+   "kubernetes/jhs-testing/tcg-wiki": [
+    "FEISHU_SERVICE_WEBHOOK",
+    "FEISHU_SYNCER_WEBHOOK",
+    "FIELD"
+   ],
+   "infra/jhs-testing/event-hub-testing-admin": [
+    "TOKEN"
+   ],
+   "infra/jhs-testing/tos-tcgai-write": [
+    "TOS_ACCESS_KEY_ID",
+    "TOS_SECRET_ACCESS_KEY"
+   ],
+   "kubernetes/jhs-testing/tcg-deck": [
+    "CURSOR_SECRET"
+   ],
+   "infra/jhs-testing/<postgres-dev-write|mysql-prod-read>": [
+    "USERNAME|PASSWORD"
+   ],
+   "infra/jhs-testing/mysql-prod-read": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-testing/tcg-base": [
+    "WECHAT_MP_SECRET_PRO"
+   ],
+   "kubernetes/jhs-testing/tcg-grade-service": [
+    "FEISHU_APP_SECRET"
+   ],
+   "kubernetes/jhs-testing/tcg-identity": [
+    "IM_KEY",
+    "WECHAT_APP_SECRET_PRO"
+   ],
+   "infra/jhs-testing/sms-aliyun-admin": [
+    "ALIYUN_SMS_AK_ID",
+    "ALIYUN_SMS_AK_SECRET"
+   ],
+   "infra/jhs-testing/sms-volcengine-admin": [
+    "VOLC_SMS_AK",
+    "VOLC_SMS_SK"
+   ],
+   "infra/jhs-testing/tim-push": [
+    "SDK_SECRET_KEY"
+   ],
+   "<mount>/<path>": [
+    "<FIELD>"
+   ],
+   "kubernetes/jhs-testing/tcg-gateway": [
+    "APPROVAL_CALLBACK_FORWARD_SECRET",
+    "APPROVAL_CARD_ENCRYPT_KEY",
+    "APPROVAL_CARD_VERIFY_TOKEN",
+    "AUDIT_KEY",
+    "FEISHU_APP_SECRET",
+    "INTERNAL_AUTH_KEY",
+    "SESSION_SECRET",
+    "SIGNATURE_SECRET",
+    "WEBAUTH_IDLINKER_ANNO_SECRET"
+   ],
+   "infra/jhs-testing/git-forgejo-admin": [
+    "GIT_TOKEN"
+   ],
+   "infra/jhs-testing/api-argocd-admin": [
+    "API_TOKEN"
+   ],
+   "infra/jhs-testing/cr-volcengine-admin": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "kubernetes/jhs-testing/tcg-gitops": [
+    "VOLCENGINE_CR_WEBHOOK_TOKEN"
+   ],
+   "infra/jhs-testing/app-feishu-admin": [
+    "APP_ID",
+    "APP_SECRET"
+   ],
+   "infra/jhs-testing/mysql-php-dev-write": [
+    "MYSQL_DB_NAME",
+    "MYSQL_HOST",
+    "MYSQL_PASSWORD",
+    "MYSQL_PORT",
+    "MYSQL_USERNAME"
+   ],
+   "infra/jhs-testing/<source>": [
+    "USERNAME|PASSWORD"
+   ],
+   "kubernetes/jhs-testing/tcg-admin-api": [
+    "FEISHU_APP_ID",
+    "FEISHU_APP_SECRET",
+    "FIELD",
+    "JWT_SECRET"
+   ],
+   "infra/jhs-testing/mysql-tcg-testing-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-testing/starrocks-prod-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-testing/starrocks-tcg-card-binder-prod-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "kubernetes/data/jhs-testing/jwt-secret": [
+    "JWT_SECRET"
+   ],
+   "kubernetes/data/jhs-testing/tcg-card-binder": [
+    "FEISHU_APP_ID",
+    "FEISHU_APP_SECRET"
+   ],
+   "kubernetes/jhs-testing/tcg-price-crontab": [
+    "FEISHU_APP_ID",
+    "FEISHU_SECRET",
+    "FEISHU_WEBHOOK",
+    "GRADING_ADMIN_PASSWORD",
+    "GRADING_SYNC_BUSINESS_ALERT_WEBHOOK",
+    "GRADING_SYNC_INTERNAL_API_TOKEN",
+    "GRADING_SYNC_TOKEN"
+   ],
+   "infra/jhs-testing/elasticsearch-testing-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-testing/redis-tcg-price-crontab-testing-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-testing/postgres-price-prod-write": [
+    "PASSWORD",
+    "USERNAME"
+   ]
+  },
+  "vault_consumers": {
+   "infra/jhs-testing/mysql-testing-write": [
+    "tcg-base-match-config.yaml",
+    "tcg-base-rpc-config.yaml",
+    "tcg-base-worker-config.yaml",
+    "tcg-card-binder-http-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-identity-rpc-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-auction-rpc-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-config.yaml",
+    "tcg-trade-consumer-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml",
+    "tcg-wiki-http-config.yaml",
+    "tcg-wiki-rpc-config.yaml",
+    "tcg-wiki-syncer-config.yaml"
+   ],
+   "infra/jhs-testing/postgres-dev-write": [
+    "tcg-admin-api-config.yaml",
+    "tcg-base-http-config.yaml",
+    "tcg-base-match-config.yaml",
+    "tcg-base-rpc-config.yaml",
+    "tcg-base-worker-config.yaml",
+    "tcg-binder-rpc-config.yaml",
+    "tcg-deck-admin-config.yaml",
+    "tcg-deck-api-config.yaml",
+    "tcg-deck-deckfill-trainer-config.yaml",
+    "tcg-deck-public-rpc-config.yaml",
+    "tcg-gitops-config.yaml",
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml",
+    "tcg-idlinker-anno-config.yaml",
+    "tcg-idlinker-config.yaml",
+    "tcg-idlinker-http-config-v2.yaml",
+    "tcg-idlinker-http-config.yaml",
+    "tcg-idlinker-rpc-config-v2.yaml",
+    "tcg-market-quote-api-config.yaml",
+    "tcg-market-quote-rpc-config.yaml",
+    "tcg-market-quote-worker-config.yaml",
+    "tcg-price-crontab-config.yaml",
+    "tcg-wiki-rpc-config.yaml",
+    "tcg-wiki-syncer-config.yaml"
+   ],
+   "infra/jhs-testing/redis-testing-write": [
+    "tcg-admin-api-config.yaml",
+    "tcg-deck-admin-config.yaml",
+    "tcg-deck-api-config.yaml",
+    "tcg-deck-public-rpc-config.yaml",
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-idlinker-http-config-v2.yaml",
+    "tcg-wiki-rpc-config.yaml"
+   ],
+   "infra/jhs-testing/kafka-crawler-dev-write": [
+    "tcg-idlinker-http-config-v2.yaml",
+    "tcg-idlinker-http-config.yaml"
+   ],
+   "infra/jhs-testing/starrocks-dev-write": [
+    "tcg-idlinker-http-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-idlinker": [
+    "tcg-idlinker-anno-config.yaml",
+    "tcg-idlinker-http-config.yaml"
+   ],
+   "infra/jhs-testing/redis-tcg-write": [
+    "tcg-trade-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-trade": [
+    "tcg-identity-config.yaml",
+    "tcg-identity-rpc-config.yaml",
+    "tcg-trade-config.yaml"
+   ],
+   "kubernetes/jhs-testing/jwt-secret": [
+    "tcg-deck-api-config.yaml",
+    "tcg-deck-deckfill-trainer-config.yaml",
+    "tcg-gateway-config.yaml",
+    "tcg-gitops-config.yaml",
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-payment-http-config.yaml",
+    "tcg-price-crontab-config.yaml",
+    "tcg-trade-config.yaml"
+   ],
+   "infra/jhs-testing/es-tcg-admin": [
+    "tcg-trade-config.yaml"
+   ],
+   "infra/jhs-testing/tos-infra-config-write": [
+    "tcg-base-http-config.yaml",
+    "tcg-base-worker-config.yaml",
+    "tcg-wiki-rpc-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-base": [
+    "tcg-base-http-config.yaml",
+    "tcg-base-match-config.yaml",
+    "tcg-base-worker-config.yaml",
+    "tcg-fileservice-config.yaml"
+   ],
+   "mount/path": [
+    "tcg-base-http-config.yaml",
+    "tcg-binder-rpc-config.yaml",
+    "tcg-card-binder-rpc-config.yaml",
+    "tcg-card-binder-worker-config.yaml",
+    "tcg-deck-deckfill-config.yaml",
+    "tcg-deck-deckfill-trainer-config.yaml",
+    "tcg-fileservice-config.yaml",
+    "tcg-payment-http-config.yaml",
+    "tcg-payment-rpc-config.yaml"
+   ],
+   "infra/jhs-testing/postgres-testing-write": [
+    "riftdeck-backend-http-config.yaml",
+    "riftdeck-backend-worker-config.yaml",
+    "tcg-card-binder-http-config.yaml",
+    "tcg-card-binder-rpc-config.yaml",
+    "tcg-card-binder-worker-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-payment-http-config.yaml",
+    "tcg-payment-rpc-config.yaml",
+    "tcg-wiki-http-config.yaml",
+    "tcg-wiki-rpc-config.yaml",
+    "tcg-wiki-syncer-config.yaml"
+   ],
+   "infra/jhs-testing/mysql-dev-write": [
+    "tcg-wiki-http-config.yaml",
+    "tcg-wiki-rpc-config.yaml",
+    "tcg-wiki-syncer-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-wiki": [
+    "tcg-wiki-http-config.yaml",
+    "tcg-wiki-syncer-config.yaml"
+   ],
+   "infra/jhs-testing/event-hub-testing-admin": [
+    "tcg-idlinker-rpc-config-v2.yaml",
+    "tcg-wiki-syncer-config.yaml"
+   ],
+   "infra/jhs-testing/tos-tcgai-write": [
+    "tcg-deck-deckfill-config.yaml",
+    "tcg-deck-deckfill-trainer-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-deck": [
+    "tcg-deck-deckfill-config.yaml"
+   ],
+   "infra/jhs-testing/<postgres-dev-write|mysql-prod-read>": [
+    "tcg-market-quote-api-config.yaml",
+    "tcg-market-quote-rpc-config.yaml",
+    "tcg-market-quote-worker-config.yaml"
+   ],
+   "infra/jhs-testing/mysql-prod-read": [
+    "tcg-market-quote-api-config.yaml",
+    "tcg-market-quote-rpc-config.yaml",
+    "tcg-market-quote-worker-config.yaml"
+   ],
+   "infra/jhs-testing/tcg-base": [
+    "tcg-base-http-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-grade-service": [
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-identity": [
+    "tcg-identity-config.yaml"
+   ],
+   "infra/jhs-testing/sms-aliyun-admin": [
+    "tcg-identity-config.yaml"
+   ],
+   "infra/jhs-testing/sms-volcengine-admin": [
+    "tcg-identity-config.yaml"
+   ],
+   "infra/jhs-testing/tim-push": [
+    "tcg-base-rpc-config.yaml"
+   ],
+   "<mount>/<path>": [
+    "tcg-gateway-admin-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-gateway": [
+    "tcg-gateway-admin-config.yaml",
+    "tcg-idlinker-anno-config.yaml"
+   ],
+   "infra/jhs-testing/git-forgejo-admin": [
+    "tcg-gitops-config.yaml"
+   ],
+   "infra/jhs-testing/api-argocd-admin": [
+    "tcg-gitops-config.yaml"
+   ],
+   "infra/jhs-testing/cr-volcengine-admin": [
+    "tcg-gitops-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-gitops": [
+    "tcg-gitops-config.yaml"
+   ],
+   "infra/jhs-testing/app-feishu-admin": [
+    "tcg-gitops-config.yaml"
+   ],
+   "infra/jhs-testing/mysql-php-dev-write": [
+    "tcg-idlinker-config.yaml"
+   ],
+   "infra/jhs-testing/<source>": [
+    "tcg-admin-api-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-admin-api": [
+    "tcg-admin-api-config.yaml"
+   ],
+   "infra/jhs-testing/mysql-tcg-testing-write": [
+    "tcg-admin-api-config.yaml",
+    "tcg-card-api.yaml",
+    "tcg-price-crontab-config.yaml"
+   ],
+   "infra/jhs-testing/starrocks-prod-write": [
+    "tcg-admin-api-config.yaml",
+    "tcg-market-quote-worker-config.yaml",
+    "tcg-price-crontab-config.yaml"
+   ],
+   "infra/jhs-testing/starrocks-tcg-card-binder-prod-write": [
+    "tcg-card-binder-worker-config.yaml"
+   ],
+   "kubernetes/data/jhs-testing/jwt-secret": [
+    "tcg-card-binder-worker-config.yaml"
+   ],
+   "kubernetes/data/jhs-testing/tcg-card-binder": [
+    "tcg-card-binder-worker-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-price-crontab": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "infra/jhs-testing/elasticsearch-testing-write": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "infra/jhs-testing/redis-tcg-price-crontab-testing-write": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "infra/jhs-testing/postgres-price-prod-write": [
+    "tcg-price-crontab-config.yaml"
+   ]
+  },
+  "hosts": {
+   "mysqlda9376289ad9.rds.ivolces.com:3306": [
+    "tcg-base-match-config.yaml",
+    "tcg-base-rpc-config.yaml",
+    "tcg-base-worker-config.yaml",
+    "tcg-card-binder-http-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-identity-rpc-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-auction-rpc-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-config.yaml",
+    "tcg-trade-consumer-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml",
+    "tcg-wiki-http-config.yaml",
+    "tcg-wiki-rpc-config.yaml",
+    "tcg-wiki-syncer-config.yaml"
+   ],
+   "elasticsearch-o-0040o9qpa9g8.escloud.ivolces.com:9200": [
+    "tcg-price-crontab-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-auction-rpc-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-consumer-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "postgres47088f07c3d0.rds-pg.ivolces.com": [
+    "tcg-admin-api-config.yaml",
+    "tcg-base-http-config.yaml",
+    "tcg-base-match-config.yaml",
+    "tcg-base-rpc-config.yaml",
+    "tcg-base-worker-config.yaml",
+    "tcg-binder-rpc-config.yaml",
+    "tcg-deck-admin-config.yaml",
+    "tcg-deck-api-config.yaml",
+    "tcg-deck-deckfill-trainer-config.yaml",
+    "tcg-deck-public-rpc-config.yaml",
+    "tcg-gitops-config.yaml",
+    "tcg-idlinker-anno-config.yaml",
+    "tcg-idlinker-config.yaml",
+    "tcg-idlinker-http-config-v2.yaml",
+    "tcg-idlinker-http-config.yaml",
+    "tcg-idlinker-rpc-config-v2.yaml",
+    "tcg-market-quote-api-config.yaml",
+    "tcg-market-quote-rpc-config.yaml",
+    "tcg-market-quote-worker-config.yaml",
+    "tcg-price-crontab-config.yaml"
+   ],
+   "redis-cnlfejfecsejfte5a.redis.ivolces.com:6379": [
+    "tcg-admin-api-config.yaml",
+    "tcg-deck-admin-config.yaml",
+    "tcg-deck-api-config.yaml",
+    "tcg-deck-public-rpc-config.yaml",
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-idlinker-http-config-v2.yaml",
+    "tcg-wiki-rpc-config.yaml"
+   ],
+   "kafka-ap-1c3wqcachatti.kafka.ap-southeast-1.volces.com:9491": [
+    "tcg-idlinker-http-config-v2.yaml",
+    "tcg-idlinker-http-config.yaml"
+   ],
+   "oss-cn-shenzhen.aliyuncs.com": [
+    "tcg-trade-config.yaml"
+   ],
+   "tos-s3-cn-beijing.volces.com": [
+    "tcg-base-http-config.yaml",
+    "tcg-base-worker-config.yaml",
+    "tcg-gateway-admin-config.yaml",
+    "tcg-wiki-rpc-config.yaml"
+   ],
+   "postgres582316ae20ce.rds-pg.ivolces.com": [
+    "riftdeck-backend-http-config.yaml",
+    "riftdeck-backend-worker-config.yaml",
+    "tcg-card-binder-http-config.yaml",
+    "tcg-card-binder-rpc-config.yaml",
+    "tcg-card-binder-worker-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-payment-http-config.yaml",
+    "tcg-payment-rpc-config.yaml",
+    "tcg-wiki-http-config.yaml",
+    "tcg-wiki-rpc-config.yaml",
+    "tcg-wiki-syncer-config.yaml"
+   ],
+   "tos-s3-cn-beijing.ivolces.com": [
+    "tcg-deck-deckfill-config.yaml",
+    "tcg-deck-deckfill-trainer-config.yaml"
+   ],
+   "mysql-bc32ad6b755b-custom-e4b0-private.rds.ivolces.com:3306": [
+    "tcg-market-quote-api-config.yaml",
+    "tcg-market-quote-rpc-config.yaml",
+    "tcg-market-quote-worker-config.yaml"
+   ],
+   "postgres-47088f07c3d0-public.rds-pg.volces.com": [
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml"
+   ],
+   "jhs-ap-southeast-1.cr.volces.com": [
+    "tcg-gitops-config.yaml"
+   ],
+   "jhs-cn-beijing.cr.volces.com": [
+    "tcg-gitops-config.yaml"
+   ],
+   "mysqldd8e60636efd.rds.ivolces.com:3306": [
+    "tcg-admin-api-config.yaml",
+    "tcg-card-api.yaml",
+    "tcg-price-crontab-config.yaml"
+   ],
+   "redis-cnlfc3s9fctedp8ta.redis.ivolces.com:6379": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "postgresa6fffe10789a.rds-pg.ivolces.com": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "kafka-ap-1c3wqcachatti.kafka.ap-southeast-1.ivolces.com:9092": [
+    "tcg-price-crontab-config.yaml"
+   ]
+  }
+ },
+ "jhs-staging": {
+  "vault": {
+   "kubernetes/jhs-staging/jwt-secret": [
+    "JWT_SECRET"
+   ],
+   "kubernetes/<env>/tcg-gateway": [
+    "KEYDATA_SECRET"
+   ],
+   "mount/path": [
+    "field"
+   ],
+   "infra/jhs-testing/tos-tcgai-write": [
+    "TOS_ACCESS_KEY_ID",
+    "TOS_SECRET_ACCESS_KEY"
+   ],
+   "infra/jhs-prod/mysql-tcg-prod-read": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-testing/mysql-tcg-testing-write": [
+    "PASSWORD",
+    "USERNAME"
+   ]
+  },
+  "vault_consumers": {
+   "kubernetes/jhs-staging/jwt-secret": [
+    "tcg-gateway-config.yaml"
+   ],
+   "kubernetes/<env>/tcg-gateway": [
+    "tcg-gateway-config.yaml"
+   ],
+   "mount/path": [
+    "tcg-fileservice-config.yaml"
+   ],
+   "infra/jhs-testing/tos-tcgai-write": [
+    "tcg-fileservice-config.yaml"
+   ],
+   "infra/jhs-prod/mysql-tcg-prod-read": [
+    "tcg-base-match-config.yaml"
+   ],
+   "infra/jhs-testing/mysql-tcg-testing-write": [
+    "tcg-card-api.yaml"
+   ]
+  },
+  "hosts": {
+   "tos-s3-cn-beijing.ivolces.com": [
+    "tcg-fileservice-config.yaml"
+   ],
+   "tos-cn-beijing.volces.com": [
+    "tcg-fileservice-config.yaml"
+   ],
+   "mysql-bc32ad6b755b-custom-e51a-private.rds.ivolces.com:3306": [
+    "tcg-base-match-config.yaml"
+   ],
+   "mysqldd8e60636efd.rds.ivolces.com:3306": [
+    "tcg-card-api.yaml"
+   ]
+  }
+ },
+ "jhs-prod": {
+  "vault": {
+   "kubernetes/jhs-prod/jwt-secret": [
+    "JWT_SECRET"
+   ],
+   "kubernetes/jhs-prod/tcg-grade-service": [
+    "FEISHU_APP_ID",
+    "FEISHU_APP_SECRET"
+   ],
+   "infra/jhs-prod/postgres-tcggrade-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/redis-prod-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "<mount>/<path>": [
+    "<FIELD>"
+   ],
+   "kubernetes/jhs-prod/tcg-gateway": [
+    "APPROVAL_CALLBACK_FORWARD_SECRET",
+    "APPROVAL_CARD_ENCRYPT_KEY",
+    "APPROVAL_CARD_VERIFY_TOKEN",
+    "AUDIT_KEY",
+    "FEISHU_APP_SECRET",
+    "INTERNAL_AUTH_KEY",
+    "SESSION_SECRET",
+    "SIGNATURE_SECRET",
+    "WEBAUTH_IDLINKER_ANNO_SECRET"
+   ],
+   "mount/path": [
+    "field"
+   ],
+   "infra/jhs-prod/postgres-tcgcard-binder-tcgcard-binder-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/postgres-tcginfra-crawler-scheduler-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/tos-crawler-scheduler-write": [
+    "ACCESS_KEY_ID",
+    "SECRET_ACCESS_KEY"
+   ],
+   "infra/jhs-prod/kafka-southeast-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/mysql-tcg-prod-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/mysql-tcg-prod-read": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "kubernetes/jhs-prod/tcg-identity": [
+    "PRIVACY_AES_ENCRYPT_KEY",
+    "WECHAT_APP_SECRET_PRO"
+   ],
+   "infra/jhs-prod/elasticsearch-prod-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "kubernetes/jhs-prod/tcg-trade": [
+    "ADA_PAY_ADA_PUBLIC_KEY_PEM",
+    "ADA_PAY_API_KEY_LIVE",
+    "ADA_PAY_API_KEY_TEST",
+    "ADA_PAY_APP_ID_DEFAULT",
+    "ADA_PAY_APP_ID_NORMAL",
+    "ADA_PAY_LB_ADA_PUBLIC_KEY_PEM",
+    "ADA_PAY_LB_API_KEY_LIVE",
+    "ADA_PAY_LB_API_KEY_TEST",
+    "ADA_PAY_LB_APP_ID_DEFAULT",
+    "ADA_PAY_LB_APP_ID_NORMAL",
+    "ADA_PAY_LB_RSA_PRIVATE_KEY_PEM",
+    "ADA_PAY_LB_RSA_PUBLIC_KEY_PEM",
+    "ADA_PAY_RSA_PRIVATE_KEY_PEM",
+    "ADA_PAY_RSA_PUBLIC_KEY_PEM",
+    "FEISHU_WEBHOOK_AUCTION_SELLER_GMV_REPORT",
+    "IM_KEY",
+    "NTES_DUN_SECRET_ACCESS_KEY",
+    "NTES_DUN_SECRET_ID",
+    "WECHAT_OFFICIAL_ACCOUNT_SECRET"
+   ],
+   "infra/jhs-prod/postgres-tcginfra-gitops-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/git-forgejo-admin": [
+    "GIT_TOKEN"
+   ],
+   "infra/jhs-prod/api-argocd-admin": [
+    "API_TOKEN"
+   ],
+   "infra/jhs-prod/cr-volcengine-admin": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "kubernetes/jhs-prod/tcg-gitops": [
+    "WEBHOOK_SECRET"
+   ],
+   "infra/jhs-prod/app-feishu-admin": [
+    "APP_ID",
+    "APP_SECRET"
+   ],
+   "infra/jhs-prod/postgres-tcgdata-prod-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/event-hub-prod-admin": [
+    "TOKEN"
+   ],
+   "infra/jhs-prod/postgres-testing-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/sms-aliyun-admin": [
+    "ALIYUN_SMS_AK_ID",
+    "ALIYUN_SMS_AK_SECRET"
+   ],
+   "infra/jhs-prod/sms-volcengine-admin": [
+    "VOLC_SMS_AK",
+    "VOLC_SMS_SK"
+   ],
+   "infra/jhs-testing/postgres-tcgdata-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-testing/starrocks-dev-write": [
+    "DB_NAME",
+    "HOST",
+    "PASSWORD",
+    "PORT",
+    "USERNAME"
+   ],
+   "kubernetes/jhs-testing/tcg-idlinker": [
+    "EVENTHUB_TOKEN"
+   ],
+   "infra/jhs-testing/kafka-crawler-dev-write": [
+    "KAFKA_PASSWORD",
+    "KAFKA_USERNAME"
+   ],
+   "infra/jhs-prod/redis-tcgcard-binder-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-testing/mysql-php-dev-write": [
+    "MYSQL_DB_NAME",
+    "MYSQL_HOST",
+    "MYSQL_PASSWORD",
+    "MYSQL_PORT",
+    "MYSQL_USERNAME"
+   ],
+   "infra/jhs-prod/redis-prod-gateway-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "kubernetes/<env>/tcg-gateway": [
+    "KEYDATA_SECRET"
+   ],
+   "infra/jhs-prod/starrocks-prod-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/postgres-tcgsearch-tcgprice-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "kubernetes/jhs-prod/tcg-price-crontab": [
+    "FEISHU_APP_ID",
+    "FEISHU_SECRET",
+    "FEISHU_WEBHOOK",
+    "GRADING_ADMIN_PASSWORD",
+    "GRADING_SYNC_BUSINESS_ALERT_WEBHOOK",
+    "GRADING_SYNC_INTERNAL_API_TOKEN",
+    "GRADING_SYNC_TOKEN"
+   ],
+   "infra/jhs-prod/postgres-tcgprice-tcgprice-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/starrocks-tcgcard-binder-write": [
+    "PASSWORD",
+    "USERNAME"
+   ],
+   "infra/jhs-prod/app-feishu-jhs-admin": [
+    "APP_ID",
+    "APP_SECRET"
+   ],
+   "kubernetes/jhs-prod/tcg-idlinker": [
+    "WEBAUTH_IDLINKER_ANNO_SESSION_SECRET"
+   ]
+  },
+  "vault_consumers": {
+   "kubernetes/jhs-prod/jwt-secret": [
+    "tcg-card-binder-worker-config.yaml",
+    "tcg-gateway-config.yaml",
+    "tcg-gitops-config.yaml",
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-price-crontab-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "kubernetes/jhs-prod/tcg-grade-service": [
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml"
+   ],
+   "infra/jhs-prod/postgres-tcggrade-write": [
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml"
+   ],
+   "infra/jhs-prod/redis-prod-write": [
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-price-crontab-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "<mount>/<path>": [
+    "tcg-gateway-admin-config.yaml"
+   ],
+   "kubernetes/jhs-prod/tcg-gateway": [
+    "tcg-gateway-admin-config.yaml",
+    "tcg-idlinker-anno-config.yaml"
+   ],
+   "mount/path": [
+    "tcg-card-binder-rpc-config.yaml",
+    "tcg-card-binder-worker-config.yaml"
+   ],
+   "infra/jhs-prod/postgres-tcgcard-binder-tcgcard-binder-write": [
+    "tcg-card-binder-http-config.yaml",
+    "tcg-card-binder-rpc-config.yaml",
+    "tcg-card-binder-worker-config.yaml"
+   ],
+   "infra/jhs-prod/postgres-tcginfra-crawler-scheduler-write": [
+    "crawler-scheduler-api-config.yaml",
+    "crawler-scheduler-crawler-config.yaml",
+    "crawler-scheduler-scheduler-config.yaml",
+    "crawler-scheduler-sink-config.yaml"
+   ],
+   "infra/jhs-prod/tos-crawler-scheduler-write": [
+    "crawler-scheduler-api-config.yaml",
+    "crawler-scheduler-crawler-config.yaml",
+    "crawler-scheduler-scheduler-config.yaml",
+    "crawler-scheduler-sink-config.yaml"
+   ],
+   "infra/jhs-prod/kafka-southeast-write": [
+    "crawler-scheduler-api-config.yaml",
+    "crawler-scheduler-crawler-config.yaml",
+    "crawler-scheduler-scheduler-config.yaml",
+    "crawler-scheduler-sink-config.yaml",
+    "tcg-idlinker-http-config-v2.yaml"
+   ],
+   "infra/jhs-prod/mysql-tcg-prod-write": [
+    "tcg-identity-config.yaml",
+    "tcg-price-crontab-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "infra/jhs-prod/mysql-tcg-prod-read": [
+    "tcg-card-binder-http-config.yaml",
+    "tcg-identity-rpc-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "kubernetes/jhs-prod/tcg-identity": [
+    "tcg-identity-config.yaml",
+    "tcg-identity-rpc-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "infra/jhs-prod/elasticsearch-prod-write": [
+    "tcg-price-crontab-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "kubernetes/jhs-prod/tcg-trade": [
+    "tcg-identity-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "infra/jhs-prod/postgres-tcginfra-gitops-write": [
+    "tcg-gitops-config.yaml"
+   ],
+   "infra/jhs-prod/git-forgejo-admin": [
+    "tcg-gitops-config.yaml"
+   ],
+   "infra/jhs-prod/api-argocd-admin": [
+    "tcg-gitops-config.yaml"
+   ],
+   "infra/jhs-prod/cr-volcengine-admin": [
+    "tcg-gitops-config.yaml"
+   ],
+   "kubernetes/jhs-prod/tcg-gitops": [
+    "tcg-gitops-config.yaml"
+   ],
+   "infra/jhs-prod/app-feishu-admin": [
+    "tcg-gitops-config.yaml"
+   ],
+   "infra/jhs-prod/postgres-tcgdata-prod-write": [
+    "tcg-idlinker-http-config-v2.yaml",
+    "tcg-idlinker-rpc-config-v2.yaml"
+   ],
+   "infra/jhs-prod/event-hub-prod-admin": [
+    "tcg-idlinker-rpc-config-v2.yaml"
+   ],
+   "infra/jhs-prod/postgres-testing-write": [
+    "tcg-identity-config.yaml"
+   ],
+   "infra/jhs-prod/sms-aliyun-admin": [
+    "tcg-identity-config.yaml"
+   ],
+   "infra/jhs-prod/sms-volcengine-admin": [
+    "tcg-identity-config.yaml"
+   ],
+   "infra/jhs-testing/postgres-tcgdata-write": [
+    "tcg-idlinker-anno-config.yaml",
+    "tcg-idlinker-config.yaml",
+    "tcg-idlinker-http-config.yaml"
+   ],
+   "infra/jhs-testing/starrocks-dev-write": [
+    "tcg-idlinker-http-config.yaml"
+   ],
+   "kubernetes/jhs-testing/tcg-idlinker": [
+    "tcg-idlinker-http-config.yaml"
+   ],
+   "infra/jhs-testing/kafka-crawler-dev-write": [
+    "tcg-idlinker-http-config.yaml"
+   ],
+   "infra/jhs-prod/redis-tcgcard-binder-write": [
+    "tcg-card-binder-http-config.yaml"
+   ],
+   "infra/jhs-testing/mysql-php-dev-write": [
+    "tcg-idlinker-config.yaml"
+   ],
+   "infra/jhs-prod/redis-prod-gateway-write": [
+    "tcg-gateway-config.yaml"
+   ],
+   "kubernetes/<env>/tcg-gateway": [
+    "tcg-gateway-config.yaml"
+   ],
+   "infra/jhs-prod/starrocks-prod-write": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "infra/jhs-prod/postgres-tcgsearch-tcgprice-write": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "kubernetes/jhs-prod/tcg-price-crontab": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "infra/jhs-prod/postgres-tcgprice-tcgprice-write": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "infra/jhs-prod/starrocks-tcgcard-binder-write": [
+    "tcg-card-binder-worker-config.yaml"
+   ],
+   "infra/jhs-prod/app-feishu-jhs-admin": [
+    "tcg-card-binder-worker-config.yaml"
+   ],
+   "kubernetes/jhs-prod/tcg-idlinker": [
+    "tcg-idlinker-anno-config.yaml"
+   ]
+  },
+  "hosts": {
+   "postgres26a4ffbc89ca.rds-pg.ivolces.com": [
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml",
+    "tcg-idlinker-http-config-v2.yaml",
+    "tcg-idlinker-rpc-config-v2.yaml"
+   ],
+   "redis-cnlfqm5kgqs5394ma.redis.ivolces.com:6379": [
+    "tcg-grade-service-admin-config.yaml",
+    "tcg-grade-service-config.yaml",
+    "tcg-grade-service-rpc-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-price-crontab-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "tos-s3-cn-beijing.volces.com": [
+    "tcg-gateway-admin-config.yaml"
+   ],
+   "postgres60c3c3e28ad1.rds-pg.ivolces.com": [
+    "tcg-card-binder-http-config.yaml",
+    "tcg-card-binder-rpc-config.yaml",
+    "tcg-card-binder-worker-config.yaml"
+   ],
+   "postgres27ddd1675a66.rds-pg.ivolces.com:5432": [
+    "crawler-scheduler-api-config.yaml",
+    "crawler-scheduler-crawler-config.yaml",
+    "crawler-scheduler-scheduler-config.yaml",
+    "crawler-scheduler-sink-config.yaml"
+   ],
+   "tos-s3-cn-beijing.ivolces.com": [
+    "crawler-scheduler-api-config.yaml",
+    "crawler-scheduler-crawler-config.yaml",
+    "crawler-scheduler-scheduler-config.yaml",
+    "crawler-scheduler-sink-config.yaml"
+   ],
+   "kafka-ap-1c3wqcachatti.kafka.ap-southeast-1.ivolces.com:9093": [
+    "crawler-scheduler-api-config.yaml",
+    "crawler-scheduler-crawler-config.yaml",
+    "crawler-scheduler-scheduler-config.yaml",
+    "crawler-scheduler-sink-config.yaml"
+   ],
+   "mysql-bc32ad6b755b-custom-e51a-private.rds.ivolces.com:3306": [
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "es-cn-7pp2qp8330007okgh.public.elasticsearch.aliyuncs.com:9200": [
+    "tcg-price-crontab-config.yaml",
+    "tcg-trade-activity-config.yaml",
+    "tcg-trade-auction-config.yaml",
+    "tcg-trade-cart-config.yaml",
+    "tcg-trade-inventory-config.yaml",
+    "tcg-trade-job-config.yaml",
+    "tcg-trade-order-config.yaml",
+    "tcg-trade-payment-config.yaml",
+    "tcg-trade-product-config.yaml",
+    "tcg-trade-seller-config.yaml",
+    "tcg-trade-user-config.yaml"
+   ],
+   "postgres27ddd1675a66.rds-pg.ivolces.com": [
+    "tcg-gitops-config.yaml"
+   ],
+   "jhs-ap-southeast-1.cr.volces.com": [
+    "tcg-gitops-config.yaml"
+   ],
+   "jhs-cn-beijing.cr.volces.com": [
+    "tcg-gitops-config.yaml"
+   ],
+   "postgres582316ae20ce.rds-pg.ivolces.com": [
+    "tcg-identity-config.yaml"
+   ],
+   "mysqlbc32ad6b755b.rds.ivolces.com:3306": [
+    "tcg-card-binder-http-config.yaml",
+    "tcg-identity-config.yaml",
+    "tcg-identity-rpc-config.yaml",
+    "tcg-price-crontab-config.yaml"
+   ],
+   "postgres47088f07c3d0.rds-pg.ivolces.com": [
+    "tcg-idlinker-anno-config.yaml",
+    "tcg-idlinker-config.yaml",
+    "tcg-idlinker-http-config.yaml"
+   ],
+   "kafka-ap-1c3wqcachatti.kafka.ap-southeast-1.volces.com:9491": [
+    "tcg-idlinker-http-config-v2.yaml",
+    "tcg-idlinker-http-config.yaml"
+   ],
+   "redis-cnlfazdp1vd816g7a.redis.ivolces.com:6379": [
+    "tcg-card-binder-http-config.yaml"
+   ],
+   "redis-cnlfj4rz4adhrhkma.redis.ivolces.com:6379": [
+    "tcg-gateway-config.yaml"
+   ],
+   "postgres258426c98095.rds-pg.ivolces.com": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "postgresa6fffe10789a.rds-pg.ivolces.com": [
+    "tcg-price-crontab-config.yaml"
+   ],
+   "kafka-ap-1c3wqcachatti.kafka.ap-southeast-1.ivolces.com:9092": [
+    "tcg-price-crontab-config.yaml"
+   ]
+  }
+ }
+}
