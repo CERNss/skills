@@ -1,0 +1,277 @@
+{
+  "name": "<repo_name> Dashboard Name",
+  "description": "Generic full SigNoz dashboard for health, status, dependencies, and triage.",
+  "tags": [
+    "<repo_name>",
+    "signoz",
+    "otel",
+    "full"
+  ],
+  "version": "v4",
+  "variables": {
+    "service.name": {
+      "name": "service.name",
+      "type": "DYNAMIC",
+      "selectedValue": "",
+      "multiSelect": true,
+      "description": "Filter by service name when the field exists"
+    },
+    "deployment.environment": {
+      "name": "deployment.environment",
+      "type": "DYNAMIC",
+      "selectedValue": "",
+      "multiSelect": false,
+      "description": "Filter by environment when the field exists"
+    }
+  },
+  "layout": [
+    {
+      "h": 1,
+      "i": "row-service-health",
+      "minH": 1,
+      "minW": 12,
+      "w": 12,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "h": 3,
+      "i": "value-throughput",
+      "w": 3,
+      "x": 0,
+      "y": 1
+    },
+    {
+      "h": 3,
+      "i": "value-error-rate",
+      "w": 3,
+      "x": 3,
+      "y": 1
+    },
+    {
+      "h": 3,
+      "i": "value-p95-latency",
+      "w": 3,
+      "x": 6,
+      "y": 1
+    },
+    {
+      "h": 3,
+      "i": "value-p99-latency",
+      "w": 3,
+      "x": 9,
+      "y": 1
+    },
+    {
+      "h": 1,
+      "i": "row-errors",
+      "minH": 1,
+      "minW": 12,
+      "w": 12,
+      "x": 0,
+      "y": 4
+    },
+    {
+      "h": 6,
+      "i": "graph-error-trend",
+      "w": 6,
+      "x": 0,
+      "y": 5
+    },
+    {
+      "h": 6,
+      "i": "graph-top-failing-dimension",
+      "w": 6,
+      "x": 6,
+      "y": 5
+    },
+    {
+      "h": 1,
+      "i": "row-drilldown",
+      "minH": 1,
+      "minW": 12,
+      "w": 12,
+      "x": 0,
+      "y": 11
+    },
+    {
+      "h": 6,
+      "i": "graph-slow-traces-or-fallback",
+      "w": 6,
+      "x": 0,
+      "y": 12
+    },
+    {
+      "h": 6,
+      "i": "graph-failed-traces-or-fallback",
+      "w": 6,
+      "x": 6,
+      "y": 12
+    }
+  ],
+  "widgets": [
+    {
+      "id": "row-service-health",
+      "panelTypes": "row",
+      "title": "Service Health"
+    },
+    {
+      "id": "value-throughput",
+      "panelTypes": "value",
+      "title": "Throughput",
+      "description": "Replace with the main throughput metric from the metrics contract",
+      "query": {
+        "id": "value-throughput-q",
+        "queryType": "builder",
+        "builder": {
+          "queryData": [],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [],
+        "promql": []
+      },
+      "yAxisUnit": "reqps"
+    },
+    {
+      "id": "value-error-rate",
+      "panelTypes": "value",
+      "title": "Error Rate",
+      "description": "Replace with the main error-rate metric from the metrics contract",
+      "query": {
+        "id": "value-error-rate-q",
+        "queryType": "builder",
+        "builder": {
+          "queryData": [],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [],
+        "promql": []
+      },
+      "yAxisUnit": "percent"
+    },
+    {
+      "id": "value-p95-latency",
+      "panelTypes": "value",
+      "title": "P95 Latency",
+      "description": "Replace with the main p95 or p90 latency metric from the metrics contract",
+      "query": {
+        "id": "value-p95-latency-q",
+        "queryType": "builder",
+        "builder": {
+          "queryData": [],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [],
+        "promql": []
+      },
+      "yAxisUnit": "ms"
+    },
+    {
+      "id": "value-p99-latency",
+      "panelTypes": "value",
+      "title": "P99 Latency",
+      "description": "Replace with the main p99 latency metric from the metrics contract",
+      "query": {
+        "id": "value-p99-latency-q",
+        "queryType": "builder",
+        "builder": {
+          "queryData": [],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [],
+        "promql": []
+      },
+      "yAxisUnit": "ms"
+    },
+    {
+      "id": "row-errors",
+      "panelTypes": "row",
+      "title": "Errors / Exceptions"
+    },
+    {
+      "id": "graph-error-trend",
+      "panelTypes": "graph",
+      "title": "Error Trend",
+      "description": "Replace with error trend or error split panels from the metrics contract",
+      "query": {
+        "id": "graph-error-trend-q",
+        "queryType": "builder",
+        "builder": {
+          "queryData": [],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [],
+        "promql": []
+      },
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "isStacked": false,
+      "yAxisUnit": "percent"
+    },
+    {
+      "id": "graph-top-failing-dimension",
+      "panelTypes": "graph",
+      "title": "Top Failing Dimension",
+      "description": "Replace with top failing operation, dependency, queue, or method",
+      "query": {
+        "id": "graph-top-failing-dimension-q",
+        "queryType": "builder",
+        "builder": {
+          "queryData": [],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [],
+        "promql": []
+      },
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "isStacked": true,
+      "yAxisUnit": "reqps"
+    },
+    {
+      "id": "row-drilldown",
+      "panelTypes": "row",
+      "title": "Trace / Log Drilldown"
+    },
+    {
+      "id": "graph-slow-traces-or-fallback",
+      "panelTypes": "graph",
+      "title": "Slow Traces or Fallback",
+      "description": "Use a traces entry when traces exist, otherwise use a top slow operation or dependency fallback",
+      "query": {
+        "id": "graph-slow-traces-or-fallback-q",
+        "queryType": "builder",
+        "builder": {
+          "queryData": [],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [],
+        "promql": []
+      },
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "isStacked": false,
+      "yAxisUnit": "ms"
+    },
+    {
+      "id": "graph-failed-traces-or-fallback",
+      "panelTypes": "graph",
+      "title": "Failed Traces or Fallback",
+      "description": "Use a traces or logs entry when available, otherwise use a top failing operation fallback",
+      "query": {
+        "id": "graph-failed-traces-or-fallback-q",
+        "queryType": "builder",
+        "builder": {
+          "queryData": [],
+          "queryFormulas": []
+        },
+        "clickhouse_sql": [],
+        "promql": []
+      },
+      "nullZeroValues": "zero",
+      "opacity": "1",
+      "isStacked": false,
+      "yAxisUnit": "reqps"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Repository Fact Diagram</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111a2b;
+      --text: #e6edf7;
+      --muted: #9fb0cc;
+      --line: #2f3f5b;
+      --accent: #55d6be;
+    }
+    body {
+      margin: 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: radial-gradient(1200px 600px at 10% 0%, #12203b 0%, var(--bg) 60%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 16px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+    p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .card {
+      background: color-mix(in oklab, var(--panel), black 10%);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: transparent;
+    }
+    .node {
+      fill: #15243f;
+      stroke: #3a4f74;
+      stroke-width: 1.2;
+      rx: 8;
+    }
+    .node-title {
+      fill: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .edge {
+      stroke: var(--accent);
+      stroke-width: 1.4;
+      fill: none;
+      marker-end: url(#arrow);
+    }
+    .edge-label {
+      fill: #9fe8da;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Repository Fact Diagram</h1>
+    <p>Replace sample nodes and edges with evidence-backed components and interactions only.</p>
+    <div class="card">
+      <svg viewBox="0 0 1200 640" role="img" aria-label="Repository fact diagram template">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="#55d6be"></path>
+          </marker>
+        </defs>
+
+        <rect class="node" x="80" y="120" width="240" height="80"></rect>
+        <text class="node-title" x="100" y="160">Service A</text>
+
+        <rect class="node" x="480" y="120" width="240" height="80"></rect>
+        <text class="node-title" x="500" y="160">Service B</text>
+
+        <rect class="node" x="880" y="120" width="240" height="80"></rect>
+        <text class="node-title" x="900" y="160">Storage C</text>
+
+        <path class="edge" d="M320 160 L480 160"></path>
+        <text class="edge-label" x="360" y="148">HTTP /rpc</text>
+
+        <path class="edge" d="M720 160 L880 160"></path>
+        <text class="edge-label" x="760" y="148">write/read</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

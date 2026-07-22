@@ -1,0 +1,3 @@
+interface:
+  display_name: "Fact Based Dashboard"
+  short_description: "Create fact-based observability docs and SigNoz dashboard outputs"

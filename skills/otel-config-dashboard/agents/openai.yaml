@@ -1,0 +1,3 @@
+interface:
+  display_name: "OTel Config Dashboard"
+  short_description: "Generate full and lite SigNoz dashboards from telemetry facts"
