@@ -2,25 +2,30 @@
 #
 # sync-from-source.sh —— 从 infra 源头单向同步工具包到本 plugin 的 assets/toolkit/
 #
-#   源头（唯一正本）: /Users/cern/LocalDisk/D/Repo/infra/codex-prompt/anti-silent-fallback/
+#   源头（唯一正本）: infra 仓库的 codex-prompt/anti-silent-fallback/
 #   目标（分发拷贝）: <plugin 根>/assets/toolkit/
 #
 # 方向是单向的：infra → plugin。rsync 带 --delete，
 # **会覆盖并删除 assets/toolkit/ 下的本地改动**。要改内容请改 infra 那份。
 #
-# 用法:
-#   bash scripts/sync-from-source.sh            # 同步
-#   bash scripts/sync-from-source.sh --dry-run  # 只看会改什么，不落盘
-#
-# 环境变量:
-#   FALLBACK_TOOLKIT_SOURCE   覆盖源头路径（换机器 / 换 checkout 位置时用）
+# 用法（FALLBACK_TOOLKIT_SOURCE 必填，本脚本不内置任何机器的绝对路径）:
+#   FALLBACK_TOOLKIT_SOURCE=<infra checkout>/codex-prompt/anti-silent-fallback \
+#     bash scripts/sync-from-source.sh            # 同步
+#   加 --dry-run 只看会改什么，不落盘
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_ROOT="$(cd -P "${SCRIPT_DIR}/.." && pwd)"
 
-SOURCE_DIR="${FALLBACK_TOOLKIT_SOURCE:-/Users/cern/LocalDisk/D/Repo/infra/codex-prompt/anti-silent-fallback}"
+# 不内置默认源头：写死某台机器的绝对路径会随分发拷贝泄漏出去，
+# 换机器后还会静默同步到错误位置——缺了就明说，这正是本工具包的哲学。
+SOURCE_DIR="${FALLBACK_TOOLKIT_SOURCE:-}"
+if [ -z "$SOURCE_DIR" ]; then
+    printf 'FALLBACK_TOOLKIT_SOURCE 未设置，不知道源头在哪。\n' >&2
+    printf '用法: FALLBACK_TOOLKIT_SOURCE=<infra checkout>/codex-prompt/anti-silent-fallback bash %s [--dry-run]\n' "$0" >&2
+    exit 1
+fi
 DEST_DIR="${PLUGIN_ROOT}/assets/toolkit"
 
 DRY_RUN=0
