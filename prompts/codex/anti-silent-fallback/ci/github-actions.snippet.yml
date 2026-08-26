@@ -1,0 +1,46 @@
+# 合并进目标仓库 .github/workflows/*.yml 的 jobs 段落。
+#
+# 这是整套机制里唯一**不可绕过**的一层：hook 能被关掉、pre-commit 能被 --no-verify 跳过，
+# CI 不能。所以这里一律 FALLBACK_CHECK_STRICT=1（fail-closed）。
+#
+# 建议同时把这个 job 设为分支保护的 required check。
+
+name: anti-silent-fallback
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  anti-silent-fallback:
+    name: 反静默降级检查
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # 需要完整历史才能在 diff 模式下比对；full 模式其实不需要，保留以便切换
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 安装 semgrep（版本固定，升级时请重跑 scripts/selftest.sh）
+        run: pip install --disable-pip-version-check "semgrep==1.174.0"
+
+      - name: 全量检查（semgrep 扫描 + 豁免对账 + 白名单对账）
+        env:
+          # fail-closed：semgrep 缺失、白名单 test 标识找不到，一律判失败
+          FALLBACK_CHECK_STRICT: "1"
+          # 白名单路径，默认就是 policy/fallbacks.yaml，按需覆盖
+          FALLBACK_REGISTRY: policy/fallbacks.yaml
+          # 额外排除目录（空格分隔），按仓库情况填
+          # FALLBACK_EXCLUDE: "third_party generated"
+          SEMGREP_SEND_METRICS: "off"
+        run: bash tools/anti-silent-fallback/scripts/check-fallback.sh full
+
+      # 可选：工具包自身升级后跑一次自测，确保规则集没写坏
+      - name: 工具包自测
+        run: bash tools/anti-silent-fallback/scripts/selftest.sh

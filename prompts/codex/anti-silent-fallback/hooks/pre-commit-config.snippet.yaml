@@ -1,0 +1,28 @@
+# 合并进目标仓库根目录的 .pre-commit-config.yaml
+#
+# 安装： pip install pre-commit && pre-commit install
+# 单跑： pre-commit run anti-silent-fallback --all-files
+#
+# 与 hook 层的区别：这里是提交前的强制关卡，semgrep 缺失 = 直接失败（不放行），
+# 因为「本地没装工具」不能成为把静默降级提交进仓库的理由。
+
+repos:
+  - repo: local
+    hooks:
+      - id: anti-silent-fallback
+        name: 反静默降级检查（semgrep / staged 文件）
+        # 路径按工具包在你仓库里的落位改
+        entry: tools/anti-silent-fallback/scripts/check-fallback.sh diff
+        language: system
+        # 脚本自己从 git 取 staged 文件列表，不需要 pre-commit 传文件名
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+        # 想让本地也跑白名单对账（较慢），再加一条：
+        # - id: anti-silent-fallback-registry
+        #   name: 降级白名单对账（expires / test）
+        #   entry: tools/anti-silent-fallback/scripts/check-fallback.sh audit-registry
+        #   language: system
+        #   pass_filenames: false
+        #   always_run: true
+        #   stages: [pre-commit]

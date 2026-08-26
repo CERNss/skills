@@ -1,0 +1,273 @@
+# 反静默降级规则集（silent-fallback）
+#
+# 设计原则：低误报优先，宁可窄不可宽。
+#   - 这些规则是「硬阻断」层（hook / pre-commit / CI），一条误报就会让人整体关掉它。
+#   - 覆盖不全的部分由各语言 linter 补齐（Go: golangci-lint nilerr/errcheck/errorlint；
+#     Python: ruff E722/BLE001/S110；TS: eslint no-empty allowEmptyCatch=false）。
+#
+# 豁免写法（顺序不能反，见 README「豁免标注约定」）：
+#   # fallback-key: <白名单 key>
+#   # nosemgrep: silent-fallback-python-broad-except-swallow
+#   try:
+#       ...
+#
+# 用法：
+#   semgrep --config semgrep/silent-fallback.yaml --error --quiet <path>
+
+rules:
+  # ---------------------------------------------------------------- Python
+  - id: silent-fallback-python-bare-except
+    languages: [python]
+    severity: ERROR
+    message: >-
+      裸 except: 会吞掉包括 KeyboardInterrupt / SystemExit 在内的一切异常，
+      调用方拿不到真实错误类型与堆栈，属于「弱化错误语义」型过度防御。
+      修法二选一：(1) 直接向上抛错，或捕获具体异常类型后 raise ... from e；
+      (2) 确属有意降级 → 走统一 fallback 入口（fallback.Run / fallback.run），
+      在 policy/fallbacks.yaml 登记 key，并按 README 约定标注
+      `# fallback-key: <key>` + `# nosemgrep: silent-fallback-python-bare-except`。
+    metadata:
+      category: correctness
+      subcategory: [silent-fallback]
+      layer: static-block
+      remediation: raise-or-register
+    patterns:
+      - pattern: |
+          try:
+              ...
+          except:
+              ...
+
+  - id: silent-fallback-python-broad-except-swallow
+    languages: [python]
+    severity: ERROR
+    message: >-
+      宽泛 except Exception/BaseException 的分支体只有 pass / return 默认值 / continue，
+      既不 raise 也不记录原始异常：错误被静默抹平，上层拿到的是伪造的「正常」返回值。
+      修法二选一：(1) 收窄异常类型并向上抛错（保留 __cause__）；
+      (2) 确属有意降级 → 走统一 fallback 入口 + policy/fallbacks.yaml 登记 key，
+      再按 README 约定标注 `# fallback-key: <key>` + `# nosemgrep: <本规则 id>`。
+    metadata:
+      category: correctness
+      subcategory: [silent-fallback]
+      layer: static-block
+      remediation: raise-or-register
+    patterns:
+      - pattern-either:
+          - pattern: |
+              try:
+                  ...
+              except $EXC:
+                  pass
+          - pattern: |
+              try:
+                  ...
+              except $EXC as $E:
+                  pass
+          - pattern: |
+              try:
+                  ...
+              except $EXC:
+                  continue
+          - pattern: |
+              try:
+                  ...
+              except $EXC as $E:
+                  continue
+          - patterns:
+              - pattern: |
+                  try:
+                      ...
+                  except $EXC:
+                      return $DEFAULT
+              - metavariable-regex:
+                  metavariable: $DEFAULT
+                  regex: >-
+                    ^(None|\{\}|\[\]|\(\)|""|''|0|0\.0|False|True|-1|list\(\)|dict\(\)|set\(\)|tuple\(\))$
+          - patterns:
+              - pattern: |
+                  try:
+                      ...
+                  except $EXC as $E:
+                      return $DEFAULT
+              - metavariable-regex:
+                  metavariable: $DEFAULT
+                  regex: >-
+                    ^(None|\{\}|\[\]|\(\)|""|''|0|0\.0|False|True|-1|list\(\)|dict\(\)|set\(\)|tuple\(\))$
+      - metavariable-regex:
+          metavariable: $EXC
+          regex: >-
+            ^(Exception|BaseException)$
+
+  - id: silent-fallback-python-config-default
+    languages: [python]
+    severity: ERROR
+    message: >-
+      配置/凭据类环境变量缺失时静默取默认值，会把「部署配置错误」伪装成「运行正常」，
+      故障现场转移到下游（连错端点、用空 token 请求、写错库），属于典型的静默掩盖配置错误。
+      修法：必填配置用 os.environ["KEY"] 直接 KeyError，或在启动时集中校验并 fail-fast；
+      确需默认值的非关键项 → 登记 policy/fallbacks.yaml 后按 README 约定标注豁免。
+    metadata:
+      category: correctness
+      subcategory: [silent-fallback, misconfiguration]
+      layer: static-block
+      remediation: fail-fast-on-config
+    patterns:
+      - pattern-either:
+          - pattern: os.environ.get($KEY, $DEFAULT)
+          - pattern: os.getenv($KEY, $DEFAULT)
+      - metavariable-regex:
+          metavariable: $KEY
+          regex: >-
+            (?i)^["'].*(api_?key|_key|secret|token|password|passwd|credential|dsn|_uri|_url|endpoint|_host|_addr).*["']$
+
+  # -------------------------------------------------------------------- Go
+  - id: silent-fallback-go-nilerr
+    languages: [go]
+    severity: ERROR
+    message: >-
+      err 判非空却返回 nil error（nilerr 模式）：错误被就地丢弃，调用方以为成功。
+      修法：return ... , fmt.Errorf("...: %w", err) 向上抛；
+      确属有意降级 → 走 fallback.Run(ctx, key, primary, degraded)，
+      在 policy/fallbacks.yaml 登记 key 并标注豁免。
+      注意本规则只覆盖最直白的几种写法，完整覆盖请同时开启
+      golangci-lint 的 nilerr / errcheck / errorlint。
+    metadata:
+      category: correctness
+      subcategory: [silent-fallback]
+      layer: static-block
+      remediation: wrap-and-return
+      companion-linter: golangci-lint(nilerr,errcheck,errorlint)
+    patterns:
+      - pattern-either:
+          - pattern: |
+              if $ERR != nil {
+                  return nil
+              }
+          - pattern: |
+              if $ERR != nil {
+                  return $V, nil
+              }
+          - pattern: |
+              if $ERR != nil {
+                  return $V, $W, nil
+              }
+      - metavariable-regex:
+          metavariable: $ERR
+          regex: >-
+            (?i)^[a-z0-9_]*err[a-z0-9_]*$
+
+  - id: silent-fallback-go-empty-err-block
+    languages: [go]
+    severity: ERROR
+    message: >-
+      if err != nil 的分支体为空：错误既没处理也没上报，等价于当作没发生。
+      修法：要么处理并向上抛错（fmt.Errorf("...: %w", err)），
+      要么显式走 fallback.Run 并在 policy/fallbacks.yaml 登记 key + 标注豁免；
+      如果真的只想忽略，请写明 `_ = err // 理由` 并接受 code review 质询。
+    metadata:
+      category: correctness
+      subcategory: [silent-fallback]
+      layer: static-block
+      remediation: wrap-and-return
+    patterns:
+      - pattern: |
+          if $ERR != nil {
+          }
+      - metavariable-regex:
+          metavariable: $ERR
+          regex: >-
+            (?i)^[a-z0-9_]*err[a-z0-9_]*$
+
+  # ----------------------------------------------------------- JavaScript/TS
+  - id: silent-fallback-js-empty-catch
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      空 catch 块：异常被彻底吞掉，既没日志也没上报，线上只会表现为「数据莫名其妙没了」。
+      修法：throw 出去，或至少 logger.error(err) 后再走统一降级入口；
+      确属有意降级 → policy/fallbacks.yaml 登记 key 后标注
+      `// fallback-key: <key>` + `// nosemgrep: silent-fallback-js-empty-catch`。
+    metadata:
+      category: correctness
+      subcategory: [silent-fallback]
+      layer: static-block
+      remediation: rethrow-or-register
+      companion-linter: eslint(no-empty allowEmptyCatch=false, no-useless-catch)
+    patterns:
+      - pattern-either:
+          - pattern: |
+              try { ... } catch ($E) { }
+          - pattern: |
+              try { ... } catch { }
+
+  - id: silent-fallback-js-catch-return-default
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      catch 分支只 return 一个默认值（null/[]/{}/""/false…），调用方无法区分
+      「真的没有数据」和「请求失败了」，排查上下文在此处丢失。
+      修法：抛出或返回带错误信息的结果类型（Result/Either 或 {data, error}）；
+      确属有意降级 → 统一 fallback 入口 + policy/fallbacks.yaml 登记 key + 两行豁免标注。
+    metadata:
+      category: correctness
+      subcategory: [silent-fallback]
+      layer: static-block
+      remediation: rethrow-or-register
+    patterns:
+      - pattern-either:
+          - patterns:
+              - pattern: |
+                  try { ... } catch ($E) { return $DEFAULT; }
+              - metavariable-regex:
+                  metavariable: $DEFAULT
+                  regex: >-
+                    ^(null|undefined|\{\}|\[\]|""|''|``|0|false|true|-1|NaN)$
+          - patterns:
+              - pattern: |
+                  try { ... } catch { return $DEFAULT; }
+              - metavariable-regex:
+                  metavariable: $DEFAULT
+                  regex: >-
+                    ^(null|undefined|\{\}|\[\]|""|''|``|0|false|true|-1|NaN)$
+
+  # ------------------------------------------------------------------- PHP
+  # 说明：PHP 两条规则刻意使用 generic + pattern-regex 实现，而不是 PHP AST 模式。
+  # 理由见 README「设计取舍」：AST 模式一旦在某个 semgrep 版本上解析失败，
+  # 整个规则文件会连带失效，导致所有语言的拦截静默失灵——那本身就是一次静默降级。
+  - id: silent-fallback-php-empty-catch
+    languages: [generic]
+    severity: ERROR
+    paths:
+      include:
+        - "*.php"
+    message: >-
+      空 catch 块：异常被吞掉且无任何记录。修法：rethrow / 记录原始异常后走统一降级入口，
+      并在 policy/fallbacks.yaml 登记 key + 标注
+      `// fallback-key: <key>` 与 `// nosemgrep: silent-fallback-php-empty-catch`。
+    metadata:
+      category: correctness
+      subcategory: [silent-fallback]
+      layer: static-block
+      remediation: rethrow-or-register
+    pattern-regex: >-
+      catch\s*\([^)]*\)\s*\{\s*\}
+
+  - id: silent-fallback-php-error-suppression
+    languages: [generic]
+    severity: ERROR
+    paths:
+      include:
+        - "*.php"
+    message: >-
+      使用 @ 错误抑制符：warning/notice 被静默丢弃（含 file_get_contents / unlink /
+      json_decode 等的真实失败原因），排查时现场为零。
+      修法：改为显式判断返回值 + 抛异常，或 set_error_handler 统一转异常；
+      确需保留 → 登记 policy/fallbacks.yaml 后标注豁免。
+    metadata:
+      category: correctness
+      subcategory: [silent-fallback]
+      layer: static-block
+      remediation: check-return-and-throw
+    pattern-regex: >-
+      (?m)(?:^|[^\s*])\s*@[A-Za-z_\\][A-Za-z0-9_\\]*\s*\(

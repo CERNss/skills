@@ -1,0 +1,36 @@
+{
+  "name": "anti-silent-fallback",
+  "version": "0.1.0",
+  "description": "反静默降级 / 过度防御拦截工具包：用 semgrep 规则 + 检查脚本 + 白名单 + pre-commit/CI 拦截 AI 和人写出的静默 fallback（吞异常返默认值、配置错误降级成看起来正常、失败时伪造数据继续跑）。提供接入、存量审计、交付前自检三个技能。",
+  "author": {
+    "name": "cern"
+  },
+  "license": "MIT",
+  "keywords": [
+    "semgrep",
+    "fallback",
+    "error-handling",
+    "code-quality",
+    "pre-commit",
+    "ci",
+    "governance"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "反静默降级拦截",
+    "shortDescription": "拦截静默降级与过度防御代码。",
+    "longDescription": "把「不要写静默 fallback」这条嘱咐下沉成机器可执行的拦截：semgrep 低误报规则集、check-fallback.sh 统一检查入口（hook / diff / full）、policy/fallbacks.yaml 降级白名单（带 owner / 到期日 / 故障注入测试）、pre-commit 与 CI 接入片段，以及 Go / Python 的统一降级入口模板。附带三个技能：接入新仓库、存量代码审计、交付前自检。",
+    "developerName": "cern",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "brandColor": "#B91C1C",
+    "defaultPrompt": [
+      "把反静默降级工具包接入这个仓库",
+      "审计本仓库的静默降级和过度防御代码",
+      "交付前跑一遍降级自检"
+    ]
+  }
+}
