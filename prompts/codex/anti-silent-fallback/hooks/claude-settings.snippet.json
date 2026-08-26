@@ -1,0 +1,25 @@
+{
+  "_README": [
+    "把下面 hooks 这一个键合并进目标仓库的 .claude/settings.json（团队共享、进版本库）",
+    "或 .claude/settings.local.json（只影响自己）。合并后请删掉 _README 与 _comment 键。",
+    "已有 settings.json 时不要整体覆盖：只把 hooks.PostToolUse 数组里的这一项追加进去。",
+    "命令路径按工具包在你仓库里的落位改，$CLAUDE_PROJECT_DIR 会展开成仓库根目录。",
+    "退出码语义：0=放行；2=打回本次编辑并把 stderr 内容喂回模型让它自己改。",
+    "matcher 用 Edit|Write 覆盖绝大多数写文件场景；如果你的版本还有 MultiEdit，写成 Edit|MultiEdit|Write。"
+  ],
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "_comment": "反静默降级：对刚写入的文件跑 semgrep，命中则 exit 2 打回",
+            "command": "$CLAUDE_PROJECT_DIR/tools/anti-silent-fallback/scripts/check-fallback.sh hook",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+# 降级白名单（fallbacks registry）——模板
+#
+# 接入方式：拷贝到宿主仓库 policy/fallbacks.yaml（路径可用 FALLBACK_REGISTRY 覆盖）。
+#
+# ★ 这个文件必须在宿主仓库被 CODEOWNERS 保护 ★
+#   .github/CODEOWNERS 里加一行：
+#       /policy/fallbacks.yaml   @your-org/tech-leads @your-org/sre
+#   于是「改动此文件」= 「走了一次人工审批」，审批动作本身留在 PR review 记录里。
+#   没有 CODEOWNERS 保护的话，白名单只是一个人人可写的许愿池，整套机制会退化成摆设。
+#
+# 规则：
+#   - 一条降级 = 一个 key（kebab-case，全仓库唯一），代码里通过统一入口引用该 key；
+#   - 未登记的 key → fallback.Run/run 直接 panic / 抛 UnregisteredFallbackError；
+#   - expires 必填。降级是欠的技术债，必须有到期日；到期未续期 → CI 红（check-fallback.sh full）；
+#   - test 必填，指向证明「降级路径真的能工作」的故障注入测试标识；
+#     CI 会在仓库里 grep 这个标识，找不到默认 warn，FALLBACK_CHECK_STRICT=1 时 fail。
+#
+# 字段：
+#   key         唯一标识，kebab-case
+#   module      归属模块/包路径
+#   trigger     什么异常/超时/状态会触发降级（写具体异常类型，不要写「出错时」）
+#   behavior    降级成什么（写具体返回值/行为，不要写「兜底」）
+#   reason      为什么这里可以降级而不是报错（对照 prompts/audit-silent-fallback.md 的合理防御 5 特征）
+#   owner       出事找谁
+#   approved_by 审批人
+#   approved_at 审批日期 YYYY-MM-DD
+#   expires     到期日 YYYY-MM-DD（必填）
+#   test        故障注入测试标识
+
+fallbacks:
+  # --- 本工具包自身的降级决策，作为「怎么写一条白名单」的示范 -------------------
+  - key: check-script-semgrep-missing
+    module: scripts/check-fallback.sh (hook 子命令)
+    trigger: 本机 PATH 中不存在 semgrep 可执行文件
+    behavior: 向 stderr 打印显眼警告后 exit 0 放行本次编辑；不阻塞 Claude Code 会话
+    reason: >-
+      属于「受限环境功能适配」。hook 是开发期辅助，semgrep 是可选重依赖；
+      若在此处 fail-closed，未装 semgrep 的新同事会被卡到一行代码都改不了，
+      结果必然是整条 hook 被摘掉——那才是真正的静默失效。
+      真正的强制点在 pre-commit（diff 模式，semgrep 缺失直接 fail）和 CI（full 模式，
+      FALLBACK_CHECK_STRICT=1），两处都是 fail-closed，因此该放行不会让问题逃逸出仓库。
+      同时提供 FALLBACK_CHECK_STRICT=1 逃生阀，可把 hook 也切成 fail-closed。
+    owner: platform-eng
+    approved_by: platform-eng-lead
+    approved_at: "2026-08-26"
+    expires: "2026-12-31"
+    test: test_hook_semgrep_missing_warns
+
+  - key: check-script-yaml-minimal-parser
+    module: scripts/check-fallback.sh (内嵌 python helper)
+    trigger: python3 环境缺少 PyYAML（import yaml 抛 ImportError）
+    behavior: 退化为内置的极简 YAML 子集解析器，只解析本白名单的固定结构
+    reason: >-
+      属于「受限环境功能适配」。工具包承诺零额外依赖，不能因为宿主仓库的 CI 镜像没装
+      PyYAML 就让整个对账环节失效。降级路径只解析本文件这一种固定 schema，
+      解析失败（缩进异常/结构不符）依然 fail-closed 报错退出，不会静默放行。
+    owner: platform-eng
+    approved_by: platform-eng-lead
+    approved_at: "2026-08-26"
+    expires: "2026-12-31"
+    test: test_registry_parses_without_pyyaml
+
+  # --- 业务侧示例：与 examples/good.py、templates/ 中的用法一一对应 -------------
+  - key: cache-read-degrade
+    module: myapp/profile
+    trigger: Redis 读超时（TimeoutError / ConnectionError），持续 > 200ms
+    behavior: 回源查主库并返回，同时把 degraded=true 透传给调用方与 metrics
+    reason: >-
+      属于「非关键外围 + 只读路径」。缓存不是事实来源，回源结果与缓存等价，
+      不存在数据正确性风险；写路径不降级（写失败必须抛错）。
+      降级事实不静默：结构化日志 + fallback_degraded_total{key} 指标 + 返回值里的 degraded 标志。
+    owner: profile-team
+    approved_by: profile-team-lead
+    approved_at: "2026-08-26"
+    expires: "2026-12-31"
+    test: TestFallback_cache_read_degrade / test_fallback_cache_read_degrade
