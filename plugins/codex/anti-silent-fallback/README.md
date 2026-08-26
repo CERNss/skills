@@ -1,10 +1,8 @@
 # anti-silent-fallback（Codex plugin）
 
-**这是一个分发壳，不是源头。** 真正的工具包模板维护在：
-
-```
-/Users/cern/LocalDisk/D/Repo/infra/codex-prompt/anti-silent-fallback/
-```
+**这是一个分发壳，不是源头。** 真正的工具包模板维护在 infra 仓库的
+`codex-prompt/anti-silent-fallback/`——本机 checkout 在哪，由环境变量
+`FALLBACK_TOOLKIT_SOURCE` 告诉同步脚本，plugin 内不写死任何机器的绝对路径。
 
 本 plugin 把那份工具包整份拷进 `assets/toolkit/`，再包三个 skill，让 codex
 能在任意仓库里「接入 / 审计 / 自检」，不必手动去 infra 里翻文件。
@@ -29,7 +27,8 @@ skills/
 改动一律改 infra 那份，然后跑：
 
 ```bash
-bash ~/plugins/anti-silent-fallback/scripts/sync-from-source.sh
+FALLBACK_TOOLKIT_SOURCE=<infra checkout>/codex-prompt/anti-silent-fallback \
+  bash ~/plugins/anti-silent-fallback/scripts/sync-from-source.sh
 ```
 
 它是 `rsync -a --delete` 从 infra 到 `assets/toolkit/`，
