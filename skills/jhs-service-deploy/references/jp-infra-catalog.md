@@ -24,7 +24,9 @@
   `jhs-db-prod-cluster.cluster-ro-c3syqs6qmo0r.ap-northeast-1.rds.amazonaws.com:3306` 库 tcg
   （账号 tcgwiki，2026-07-22 wiki 用；**cluster-ro 与 proxysql 是读/写两条路径，账号↔端点配套**）
 - **PG（tcgsearch）**：`infra/jhs-prod/postgres-tcgsearch-tcgsearch-write` → jhs-postgre-tcgsearch-prod.c3syqs6qmo0r...rds.amazonaws.com
-- **PG（tcgwiki，只读）**：`infra/jhs-prod/postgres-jhs_postgre-tcgwiki-read` → jhs-postgre-prod.c3syqs6qmo0r...rds.amazonaws.com:5432 库 tcgwiki（账号 tcgwiki_ro）
+- **PG（tcgwiki，只读）**：`infra/jhs-prod/postgres-tcgwiki-tcgwiki-read` → jhs-postgre-prod.c3syqs6qmo0r...rds.amazonaws.com:5432 库 tcgwiki
+  （2026-08-06 由 `postgres-jhs_postgre-tcgwiki-read` 切换，用户确认已 provision；旧条目已无任何配置引用，
+  待 wiki 两面用新条目健康重启后可下线）
 - **PG（tcgdata）**：`infra/jhs-prod/postgres-tcgdata-tcgdata-write`
 - **Redis**：`infra/jhs-prod/redis-tcg-write` → cluster-redis-prod.j3kkot.0001.apne1.cache.amazonaws.com:6379
 - **ES**：`infra/jhs-prod/elasticsearch-prod-write` → https://vpc-es-prod-7cfns5zwklzmalw2xhzm4elnyi.ap-northeast-1.es.amazonaws.com:443

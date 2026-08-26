@@ -59,9 +59,35 @@ env 特有资源如 ingress/nodeport/secret 放 `envs/<env>/base/*.yaml` 走 res
   resources 限额二分（判据：**换个环境这个数字还成立吗**）：服务属性（如 CPU 密集型解码）→ base/deployment，
   先例 tcg-base-worker；环境属性（数值由该环境数据量/流量决定）→ `overlays/limits.yaml`，只在需要的环境放，
   不塞 deployment/settings（容量调整是高频运维动作，独立文件 diff 可读、可横向盘点）。
-  requests 别照抄老配置的极小值：与 limits 超卖比悬殊会挤压同节点邻居，拉起后按实际水位回调。
   改已有 app 的 base 时，先 `kubectl kustomize` 存各 env 渲染基线，改完 diff 必须逐字节零变化
   （幂等重构才不惊动现网 ArgoCD）。
+- **limits 定档：三型三档矩阵（通用规格，全区域/全环境同一套）**——比例定形状、档位定大小，
+  limits = requests×4（固定超卖比），memory 由 cpu×比例推出：
+
+  | 型（cpu:mem，1核=NGi） | 轻量（125m 起） | 标准（250m 起） | 高（500m 起） |
+  |---|---|---|---|
+  | 计算型 1:1 | 125m/128Mi → 500m/512Mi | 250m/256Mi → 1c/1Gi | 500m/512Mi → 2c/2Gi |
+  | 均衡型 1:2 | 125m/256Mi → 500m/1Gi | 250m/512Mi → 1c/2Gi | 500m/1Gi → 2c/4Gi |
+  | 内存型 1:4 | 125m/512Mi → 500m/2Gi | 250m/1Gi → 1c/4Gi | 500m/2Gi → 2c/8Gi |
+
+  - 新服务 prod 首发**默认均衡型·标准档**（脚手架自带，先例 tcg-market-quote）；worker/job 类后台负载惯例高档
+    （计算型先例 card-binder-worker、均衡型先例 tcg-base-worker）。
+  - **按数据定档，不按服务名**：Grafana 直查 Prometheus 拿 7d 峰值（PromQL 全区域通用，
+    连同 CN Grafana 入口记在 cn-infra-catalog；JP 只换入口），
+    内存峰/CPU 峰的形状归型（内存常驻高→1:4、CPU 密集→1:1），峰值大小定档。
+    升档信号：CPU 峰贴 limit 或 CFS throttle 稳态走高（先例 trade-product：新版本峰 0.82c 贴 1c limit、
+    throttle 55% → 提均衡高档）；内存贴 limit / OOMKill → 升档或换 1:4（先例 search-worker 512Mi→1Gi）。
+    ⚠ 冷启瞬时 throttle 高是常态（先例 search 51.9%），看稳态别看首分钟；发版滚动期新老 RS 并存，
+    按 RS hash 区分，别把老版本峰值算到新版本头上。
+  - **注释规范（用户定稿）**：limits.yaml 里只留一行
+    `# 档位：X型（cpu:mem 1:N）· Y档 —— 体系：计算型1:1/均衡型1:2/内存型1:4，各分轻量/标准/高`；
+    实测依据写在提交信息，**不建独立 docs 文档**（曾起草被否）。
+  - requests 别照抄老配置的极小值：与真实水位悬殊会造成节点记账失真（先例 wiki-rpc 失真 16×）、挤压同节点
+    邻居，拉起后按实际水位回调。矩阵外的真定制数值必须用户明示，默认一律落矩阵格子。
+- **ingress 默认策略**：直连域名 ingress **只在 testing 配**（联调 `<svc>.testing.<根域>`）；
+  **prod/staging 默认不带 ingress**，对外流量一律走 tcg-gateway（gateway 路由注册即放量开关；
+  CN 存量直连 2026-07-23 已批量下线 #6489）。prod 要开本 app 专属标准域名（`<app>.apps.<根域>`）
+  必须用户明示（先例：tcg-wiki-http 直面用户）。
 - **kustomization**：resources `../../base`（+env 特有 base 资源）；components 按环境（testing=devnode、staging=stagingnode、prod=不挂）；顶部注释写清依赖（共享 secret 由谁声明、Nacos 配置要先发布、vault 缺失条目）。共享 secret **只按名引用、绝不重复声明**（两个 ArgoCD app 争同一资源）。
 - **settings.yaml**：OTEL（**必带 `OTEL_EXPORTER_OTLP_PROTOCOL=grpc`**——新式 Izumo/OTel SDK 按标准 env 选协议，缺它默认 http/protobuf 打 collector 的 gRPC 4317 → 持续刷 `malformed HTTP response "\x00\x00\x06\x04..."`（HTTP/2 帧）；`deployment.environment=<env>`, `cloud.region=cn`）+ `CONFIG_SOURCE=nacos` + Nacos 连接（ns/账号/密码 secret 按环境）+ 面专属 `CONFIG_NACOS_DATA_ID` + `VAULT_ADDR/VAULT_TOKEN`（token secret 按环境）。
 - **deployment.yaml**：**只放** `ENV=<env>` + `TZ=Asia/Shanghai`（gateway 同款；端口/探针等归 base）。
@@ -106,7 +132,8 @@ env 特有资源如 ingress/nodeport/secret 放 `envs/<env>/base/*.yaml` 走 res
 1. **影子期**：新 app 全量脚手架 + Nacos 配置就位，镜像用**老部署现网同款 tag**（保证同二进制，且需含
    CONFIG_SOURCE 链路；老现网 tag 太旧不含时，用含该链路的最近 v*，并在 version.yaml 注释说明差异）；
    replicas=0 合入，前置齐后拉起，只验证 nacos+vault 启动链路（看 SecretResolver 日志），不接流量。
-2. **域名**：新 app 只带**本 app 专属标准域名** ingress（`<app>.apps.<区域根域>` + 区域共享 tls，path /）。
+2. **域名**（仅当老 app 本就对外有域名；否则按「prod 默认不带 ingress」走网关）：新 app 只带
+   **本 app 专属标准域名** ingress（`<app>.apps.<区域根域>` + 区域共享 tls，path /）。
    老域名的 ingress 留在老 app，切流阶段再迁；不要做「同 host+path 双 ingress 并存等接管」的方案——
    行为依赖 controller 的 oldest-wins 细节，reviewer 也难审。
 3. **切流清单**（每项都是独立开关，逐个执行可回退）：老 app replicas 缩 0；老域名 ingress 迁移或
