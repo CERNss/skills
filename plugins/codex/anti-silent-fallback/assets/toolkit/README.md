@@ -408,12 +408,17 @@ func TestFallback_cache_read_degrade(t *testing.T) {
 
 ## 九、Codex plugin 分发
 
-本工具包已打包成 codex plugin：`~/plugins/anti-silent-fallback`
-（含 `fallback-onboard` / `fallback-audit` / `fallback-selfcheck` 三个 skill，
-工具包整份拷贝在 plugin 的 `assets/toolkit/`）。
+**本仓库的这个目录（`prompts/codex/anti-silent-fallback/`）是工具包的唯一源头。**
+plugin 分发壳在同仓库的 `plugins/codex/anti-silent-fallback/`，安装位置是
+`~/plugins/anti-silent-fallback`（含 `fallback-onboard` / `fallback-audit` /
+`fallback-selfcheck` 三个 skill，工具包整份拷贝在 plugin 的 `assets/toolkit/`）。
 
-**本目录是唯一源头，同步单向 infra → plugin。** 改完这里之后跑：
+**同步是单向的：本目录 → plugin。** 改完这里之后跑：
 
 ```bash
-bash ~/plugins/anti-silent-fallback/scripts/sync-from-source.sh
+FALLBACK_TOOLKIT_SOURCE=<skills checkout>/prompts/codex/anti-silent-fallback \
+  bash ~/plugins/anti-silent-fallback/scripts/sync-from-source.sh
 ```
+
+`FALLBACK_TOOLKIT_SOURCE` 指向本机 skills checkout 里的这个目录——
+分发出去的拷贝里不写死任何机器的绝对路径。
