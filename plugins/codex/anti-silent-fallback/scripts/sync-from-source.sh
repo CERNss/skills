@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 #
-# sync-from-source.sh —— 从 infra 源头单向同步工具包到本 plugin 的 assets/toolkit/
+# sync-from-source.sh —— 从 skills 源头单向同步工具包到本 plugin 的 assets/toolkit/
 #
-#   源头（唯一正本）: infra 仓库的 codex-prompt/anti-silent-fallback/
+#   源头（唯一正本）: skills 仓库的 prompts/codex/anti-silent-fallback/
 #   目标（分发拷贝）: <plugin 根>/assets/toolkit/
 #
-# 方向是单向的：infra → plugin。rsync 带 --delete，
-# **会覆盖并删除 assets/toolkit/ 下的本地改动**。要改内容请改 infra 那份。
+# 方向是单向的：skills → plugin。rsync 带 --delete，
+# **会覆盖并删除 assets/toolkit/ 下的本地改动**。要改内容请改源头那份。
 #
 # 用法（FALLBACK_TOOLKIT_SOURCE 必填，本脚本不内置任何机器的绝对路径）:
-#   FALLBACK_TOOLKIT_SOURCE=<infra checkout>/codex-prompt/anti-silent-fallback \
+#   FALLBACK_TOOLKIT_SOURCE=<skills checkout>/prompts/codex/anti-silent-fallback \
 #     bash scripts/sync-from-source.sh            # 同步
 #   加 --dry-run 只看会改什么，不落盘
 
@@ -23,7 +23,7 @@ PLUGIN_ROOT="$(cd -P "${SCRIPT_DIR}/.." && pwd)"
 SOURCE_DIR="${FALLBACK_TOOLKIT_SOURCE:-}"
 if [ -z "$SOURCE_DIR" ]; then
     printf 'FALLBACK_TOOLKIT_SOURCE 未设置，不知道源头在哪。\n' >&2
-    printf '用法: FALLBACK_TOOLKIT_SOURCE=<infra checkout>/codex-prompt/anti-silent-fallback bash %s [--dry-run]\n' "$0" >&2
+    printf '用法: FALLBACK_TOOLKIT_SOURCE=<skills checkout>/prompts/codex/anti-silent-fallback bash %s [--dry-run]\n' "$0" >&2
     exit 1
 fi
 DEST_DIR="${PLUGIN_ROOT}/assets/toolkit"
