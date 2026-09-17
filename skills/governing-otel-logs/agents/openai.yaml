@@ -1,0 +1,4 @@
+interface:
+  display_name: "治理 OTel 日志"
+  short_description: "裁定服务能向 OpenTelemetry 与 SigNoz 出站哪些日志，并落到配置与代码"
+  default_prompt: "使用 $governing-otel-logs 先按三种入口态分型（全新接入 / 未开导出 / 已开导出），再按必须与禁止出站清单收敛访问日志采样、探针日志、循环内逐条日志与 SQL 日志，最后用 SigNoz 计数核对降幅或首次接入的量级。"

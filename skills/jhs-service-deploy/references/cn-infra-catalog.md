@@ -139,8 +139,9 @@ testing 侧 **jhs-dev 集群有两个入口，鉴权不同，别混**：
 - ES（tcg-search 专用 escloud 实例）：`infra/jhs-testing/elasticsearch-volce-testing-write` →
   elasticsearch-o-00447gsxyq04.escloud.ivolces.com:9200（CN 三环境同址，2026-07-19 用户已建；prod 域对应条目 elasticsearch-volce-prod-write）
 - Redis：`infra/jhs-testing/redis-testing-write`（redis-cnlfc3s9fctedp8ta / redis-cnlfejfecsejfte5a 两实例，按消费方查）。
-  共享实例 cnlfejfecsejfte5a 的 db 占用：0=deck×3/grade×3/identity/idlinker、10=admin-api、14=wiki-rpc、
-  12=card-binder-http（2026-08-03 起，key 带 `tcg-card-binder:` 前缀）——新服务挑 db 先查这行避让
+  共享实例 cnlfejfecsejfte5a 的 db 占用：0=deck×3/grade×3/identity/idlinker/gateway/payment/base 家族、10=admin-api、14=wiki-rpc、
+  12=card-binder-http（2026-08-03 起，key 带 `tcg-card-binder:` 前缀）、11=tcg-market-quote **staging** 三面（跨环境借用，
+  用户 2026-09-14 指定）——新服务挑 db 先查这行避让。条目字段 USERNAME + PASSWORD 两个（2026-09-14 扫 jhs-testing 96 份配置确认）。
 - TOS：`infra/jhs-testing/tos-infra-config-write`（infra-config bucket，subgraph/超图发布）；`tos-tcgai-write`；
   `tos-crawler-scheduler-write`（与 prod 同 bucket crawler-scheduler，testing 靠 object-key-prefix `jhs-testing/spider-data` 分路径，2026-07-20 用户确认）
 - Kafka（dev 集群，集群内地址）：`kafka.jhs-dev:9094`（crawler-scheduler testing 在用，凭据 `kafka-crawler-dev-write`；idlinker link-write 配置里写的是 `kafka-nodeport-svc.jhs-dev:9094`，无 TLS）
@@ -151,6 +152,12 @@ testing 侧 **jhs-dev 集群有两个入口，鉴权不同，别混**：
 
 - `infra/jhs-prod/mysql-tcg-prod-read`（跨域引用生产只读——staging 的设计就是读 prod 数据）
 - `kubernetes/jhs-staging/jwt-secret`
+- **`infra/jhs-staging/` 域首个条目** `postgres-tcgprice-tcgprice_svc-write` → postgres3edbf27559ff.rds-pg.ivolces.com:5432，
+  库 tcgprice_svc（staging 专用 PG 实例，用户 2026-09-14 指定；tcg-price-service 主面 + tcg-market-quote 三面 staging 引用；
+  vault-prod-ro token 能否读 `infra/jhs-staging/*` 尚待首启实测）。
+- Redis：staging 借 testing 共享实例 `redis-cnlfejfecsejfte5a` + `infra/jhs-testing/redis-testing-write`（用户 2026-09-14 指定，
+  market-quote 三面用 db 11）。⚠ 跨到 jhs-testing 域，vault-prod-ro token 按 tcg-search staging 先例**读不了**——
+  首启 fail-closed 就把条目镜像成 `infra/jhs-staging/redis-testing-write` 改稿重发。
 - ⚠ staging 的 `tcg-base.yaml` 是从 jhs-dev 拷的，**不能当惯例参考**；staging 正确姿势见 tcg-base-match staging。
 
 ## 重扫脚本（catalog 过期时刷新）
