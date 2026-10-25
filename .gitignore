@@ -3,3 +3,4 @@ config.yaml
 skills/jh-admin/
 skills/jhs-service-deploy/
 skills/governing-otel-logs/
+skills/linear/
